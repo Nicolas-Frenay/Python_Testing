@@ -1,5 +1,6 @@
-from tests.conftest import client as test_client
-import pytest
+# from tests.conftest import purchase_data
+import json
+
 
 def test_index(client):
     response = client.get('/')
@@ -39,3 +40,25 @@ def test_book_with_wrong_args(client):
     response = client.get(endpoint, follow_redirects=True)
     assert response.status_code == 200 and \
            b'<title>Summary | GUDLFT Registration</title>' in response.data
+
+
+def test_purchase_base(client, purchase_data):
+    response = client.post('/purchasePlaces', data=purchase_data)
+    assert response.status_code == 200 and \
+           b'<title>Summary | GUDLFT Registration</title>' in response.data
+
+
+def test_purchase_points_excess(client, purchase_data):
+    purchase_data['places'] = 15
+    response = client.post('/purchasePlaces', data=purchase_data)
+    assert response.status_code == 200 and \
+           b"assez de points !</li>" in response.data
+
+
+def test_purchase_more_than_available(client, purchase_data_2):
+    purchase_data_2['places'] = 13
+    response = client.post('/purchasePlaces', data=purchase_data_2)
+    assert response.status_code == 200 and \
+           b'places disponibles !</li>' in response.data
+
+
