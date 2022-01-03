@@ -1,17 +1,26 @@
 from tests.conftest import client
 import pytest
 
+
 def test_index(client):
     response = client.get('/')
     assert response.status_code == 200
 
 
-def test_showSummary(client):
+def test_showSummary_valid_mail(client):
     email = 'john@simplylift.co'
-    wrong_mail = ''
-
     response = client.post('/showSummary', data={'email': email})
-    assert response.status_code == 200
+    assert response.status_code == 200 and \
+           b'<title>Summary | GUDLFT Registration</title>' in response.data
 
-    response2 = client.post('/showSummary', data={'email': wrong_mail})
-    assert b'<h3>' in response2.data
+def test_showSummary_wrong_mail(client):
+    wrong_mail = ''
+    response = client.post('/showSummary', data={'email': wrong_mail})
+    assert response.status_code == 200 and \
+           b'<h3>Adresse Email incorrecte</h3>' in response.data
+
+
+def test_logout(client):
+    response = client.get('/logout', follow_redirects=True)
+    assert response.status_code == 200 and \
+           b'<h1>Welcome to the GUDLFT Registration Portal!</h1>' in response.data
