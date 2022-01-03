@@ -56,7 +56,6 @@ def test_purchase_points_excess(client, purchase_data):
 
 
 def test_purchase_more_than_available(client, purchase_data_2):
-    purchase_data_2['places'] = 13
     response = client.post('/purchasePlaces', data=purchase_data_2)
     assert response.status_code == 200 and \
            b'places disponibles !</li>' in response.data
