@@ -14,6 +14,11 @@
             "name": "Test Classic",
             "date": "2020-10-22 13:30:00",
             "numberOfPlaces": "12"
+        },
+        {
+            "name": "Test Classic Second Edition",
+            "date": "2022-10-22 13:30:00",
+            "numberOfPlaces": "18"
         }
     ]
 }
