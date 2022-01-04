@@ -28,6 +28,7 @@ def index():
 
 @app.route('/showSummary', methods=['POST'])
 def showSummary():
+    # add a try/except to avoid index error with unknown email
     try:
         club = \
             [club for club in clubs if club['email'] == request.form['email']][
@@ -41,10 +42,11 @@ def showSummary():
 
 @app.route('/book/<competition>/<club>')
 def book(competition, club):
+    # add try/except to avoid indexerror with unknown club or competition
     try:
         foundClub = [c for c in clubs if c['name'] == club][0]
         foundCompetition = \
-        [c for c in competitions if c['name'] == competition][0]
+            [c for c in competitions if c['name'] == competition][0]
         return render_template('booking.html', club=foundClub,
                                competition=foundCompetition)
     except IndexError:
@@ -56,16 +58,17 @@ def book(competition, club):
 @app.route('/purchasePlaces', methods=['POST'])
 def purchasePlaces():
     competition = \
-        [c for c in competitions if c['name'] == request.form['competition']][
-            0]
+        [c for c in competitions if c['name'] == request.form['competition']][0]
     club = [c for c in clubs if c['name'] == request.form['club']][0]
     placesRequired = int(request.form['places'])
 
+    # check if club as enough points
     if int(club['points']) < placesRequired:
         flash("Vous ne disposez pas d'assez de points !")
         return render_template('welcome.html', club=club,
                                competitions=competitions)
 
+    # check if there is enough place available
     elif int(competition['numberOfPlaces']) < placesRequired:
         flash("Il n'y a pas assez de places disponibles !")
         return render_template('welcome.html', club=club,
