@@ -12,7 +12,7 @@ def client():
 @pytest.fixture
 def purchase_data():
     data = {
-        'competition': 'Spring Festival',
+        'competition': 'Test Classic Second Edition',
         'club': 'Simply Lift',
         'places': 10,
     }
@@ -22,7 +22,16 @@ def purchase_data():
 def purchase_data_2():
     data = {
         'competition': 'Test Classic',
-        'club': 'Simply Lift',
-        'places': 13,
+        'club': 'Iron Temple',
+        'places': 8,
+    }
+    return data
+
+@pytest.fixture
+def purchase_data_3():
+    data = {
+        'competition': 'Test Classic Bis Edition',
+        'club': 'She Lifts',
+        'places': 10,
     }
     return data
