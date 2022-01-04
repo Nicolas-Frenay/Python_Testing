@@ -1,6 +1,7 @@
 from tests.conftest import client as test_client
 import pytest
 
+
 def test_index(client):
     response = client.get('/')
     assert response.status_code == 200
