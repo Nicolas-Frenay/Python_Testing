@@ -49,8 +49,8 @@ class TestPurchase:
         assert response.status_code == 200 and \
                b'12 places au maximum !</li>' in response.data
 
-    # Those two test worked before i limite the number of places to 12
 
+    # Those two tests worked before i limite the number of places to 12
 
     # def test_purchase_points_excess(self, client, purchase_data):
     #     purchase_data['places'] = 15
