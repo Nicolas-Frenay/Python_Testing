@@ -25,10 +25,10 @@ class TestAuth:
 
 class TestBook:
     def test_book_with_good_args(self, client):
-        endpoint = '/book/Spring Festival/Simply Lift'
+        endpoint = '/book/Test Classic Second Edition/Simply Lift'
         response = client.get(endpoint)
         assert response.status_code == 200 and \
-               b'<title>Booking for Spring Festival || GUDLFT</title>' \
+               b'<title>Booking for Test Classic Second Edition || GUDLFT</title>' \
                in response.data
 
     def test_book_with_wrong_args(self, client):
