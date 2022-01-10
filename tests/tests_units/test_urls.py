@@ -57,6 +57,5 @@ class TestPurchase:
 
     def test_purchase_more_than_available(self, client, purchase_data_3):
         response = client.post('/purchasePlaces', data=purchase_data_3)
-        print(response.data)
         assert response.status_code == 200 and \
                b'places disponibles !</li>' in response.data
