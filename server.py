@@ -1,6 +1,8 @@
 import json
 from flask import Flask, render_template, request, redirect, flash, url_for
+from datetime import datetime as dt
 
+date = dt.now()
 
 def loadClubs():
     with open('clubs.json') as c:
@@ -17,9 +19,18 @@ def loadCompetitions():
 app = Flask(__name__)
 app.secret_key = 'something_special'
 
-competitions = loadCompetitions()
 clubs = loadClubs()
 
+all_competitions = loadCompetitions()
+past_competitions = []
+competitions = []
+
+# loop to separate past competitions
+for comp in all_competitions:
+    if dt.strptime(comp['date'],'%Y-%m-%d %H:%M:%S') < date:
+        past_competitions.append(comp)
+    else:
+        competitions.append(comp)
 
 @app.route('/')
 def index():
@@ -37,7 +48,8 @@ def showSummary():
         error = True
         return render_template('index.html', error=error)
     return render_template('welcome.html', club=club,
-                           competitions=competitions)
+                           competitions=competitions,
+                           past_competitions=past_competitions)
 
 
 @app.route('/book/<competition>/<club>')
@@ -66,19 +78,22 @@ def purchasePlaces():
     if placesRequired > 12:
         flash("Vous ne pouvez prendre que 12 places au maximum !")
         return render_template('welcome.html', club=club,
-                               competitions=competitions)
+                               competitions=competitions,
+                               past_competitions=past_competitions)
 
     # check if club as enough points
     if int(club['points']) < placesRequired:
         flash("Vous ne disposez pas d'assez de points !")
         return render_template('welcome.html', club=club,
-                               competitions=competitions)
+                               competitions=competitions,
+                               past_competitions=past_competitions)
 
     # check if there is enough place available
     elif int(competition['numberOfPlaces']) < placesRequired:
         flash("Il n'y a pas assez de places disponibles !")
         return render_template('welcome.html', club=club,
-                               competitions=competitions)
+                               competitions=competitions,
+                               past_competitions=past_competitions)
     else:
         competition['numberOfPlaces'] = int(
             competition['numberOfPlaces']) - placesRequired
@@ -86,7 +101,8 @@ def purchasePlaces():
         club['points'] = int(club['points']) - placesRequired
         flash('Great-booking complete!')
         return render_template('welcome.html', club=club,
-                               competitions=competitions)
+                               competitions=competitions,
+                               past_competitions=past_competitions)
 
 
 # TODO: Add route for points display
