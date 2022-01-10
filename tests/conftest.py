@@ -21,7 +21,7 @@ def purchase_data():
 @pytest.fixture
 def purchase_data_2():
     data = {
-        'competition': 'Test Classic',
+        'competition': 'Test Classic Second Edition',
         'club': 'Iron Temple',
         'places': 8,
     }
