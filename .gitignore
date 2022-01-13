@@ -7,3 +7,5 @@ lib
 __pycache__
 env/
 .idea/
+/tests/tests_fonctionnels/geckodriver
+/geckodriver.log

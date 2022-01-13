@@ -5,13 +5,20 @@ from datetime import datetime as dt
 date = dt.now()
 
 def loadClubs():
-    with open('clubs.json') as c:
+    file_path = 'clubs.json'
+    if app.config['TESTING']:
+        file_path = '/Users/nicolasfrenay/Desktop/Formation/P11_amelioration_application_web/Python_Testing/clubs.json'
+    with open(file_path) as c:
         listOfClubs = json.load(c)['clubs']
+        # print(app.config)
         return listOfClubs
 
 
 def loadCompetitions():
-    with open('competitions.json') as comps:
+    file_path = 'competitions.json'
+    if app.config['TESTING']:
+        file_path = '/Users/nicolasfrenay/Desktop/Formation/P11_amelioration_application_web/Python_Testing/competitions.json'
+    with open(file_path) as comps:
         listOfCompetitions = json.load(comps)['competitions']
         return listOfCompetitions
 
