@@ -23,7 +23,6 @@ pyparsing==3.0.6
 pytest==6.2.5
 pytest-cov==3.0.0
 pytest-flask==1.2.0
-selenium==4.1.0
 six==1.16.0
 sniffio==1.2.0
 sortedcontainers==2.4.0
