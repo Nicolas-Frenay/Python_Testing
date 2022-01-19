@@ -42,7 +42,7 @@ class TestPurchase:
     def test_purchase_base(self, client, purchase_data):
         response = client.post('/purchasePlaces', data=purchase_data)
         assert response.status_code == 200 and \
-               b'<title>Summary | GUDLFT Registration</title>' in response.data
+               b'booking complete!</li>' in response.data
 
     def test_purchase_place_limite(self, client, purchase_data):
         purchase_data['places'] = 13
@@ -59,3 +59,8 @@ class TestPurchase:
         response = client.post('/purchasePlaces', data=purchase_data_3)
         assert response.status_code == 200 and \
                b'places disponibles !</li>' in response.data
+
+    def test_3points_per_place(self, client, purchase_data_4):
+        response = client.post('/purchasePlaces', data=purchase_data_4)
+        assert response.status_code == 200 and \
+            b'Points available: 0</p>' in response.data

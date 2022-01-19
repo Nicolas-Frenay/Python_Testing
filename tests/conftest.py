@@ -14,7 +14,7 @@ def purchase_data():
     data = {
         'competition': 'Test Classic Second Edition',
         'club': 'Simply Lift',
-        'places': 10,
+        'places': 4,
     }
     return data
 
@@ -31,7 +31,16 @@ def purchase_data_2():
 def purchase_data_3():
     data = {
         'competition': 'Test Classic Bis Edition',
-        'club': 'She Lifts',
+        'club': 'test club',
         'places': 10,
+    }
+    return data
+
+@pytest.fixture
+def purchase_data_4():
+    data = {
+        'competition': 'Test Classic Second Edition',
+        'club': 'She Lifts',
+        'places': 4,
     }
     return data

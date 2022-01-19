@@ -93,7 +93,7 @@ def purchasePlaces():
                                club_list=clubs)
 
     # check if club as enough points
-    if int(club['points']) < placesRequired:
+    if int(club['points']) < placesRequired*3:
         flash("Vous ne disposez pas d'assez de points !")
         return render_template('welcome.html', club=club,
                                competitions=competitions,
@@ -111,7 +111,7 @@ def purchasePlaces():
         competition['numberOfPlaces'] = int(
             competition['numberOfPlaces']) - placesRequired
         # Fix club point update
-        club['points'] = int(club['points']) - placesRequired
+        club['points'] = int(club['points']) - placesRequired*3
         flash('Great-booking complete!')
         return render_template('welcome.html', club=club,
                                competitions=competitions,
