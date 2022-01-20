@@ -84,7 +84,7 @@ def purchasePlaces():
     club = [c for c in clubs if c['name'] == request.form['club']][0]
     placesRequired = int(request.form['places'])
 
-    # check if nbr of place not > 12
+    # check if nbr of place < 12
     if placesRequired > 12:
         flash("Vous ne pouvez prendre que 12 places au maximum !")
         return render_template('welcome.html', club=club,
