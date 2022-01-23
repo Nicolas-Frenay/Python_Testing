@@ -45,7 +45,8 @@ def showSummary():
     # add a try/except to avoid index error with unknown email
     try:
         club = \
-        [club for club in clubs if club['email'] == request.form['email']][0]
+            [club for club in clubs if club['email']
+             == request.form['email']][0]
     except IndexError:
         error = True
         return render_template('index.html', error=error)

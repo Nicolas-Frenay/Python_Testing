@@ -2,6 +2,9 @@ from locust import HttpUser, task
 
 
 class PerfTest(HttpUser):
+    """
+    Testing performance for all endpoints of the app
+    """
     @task
     def home(self):
         self.client.get('/')
